@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
+config/name="YA3"
 run/main_scene="uid://b6idq2abd40oi"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://drovovt8qolc6"
 
 [display]
 
