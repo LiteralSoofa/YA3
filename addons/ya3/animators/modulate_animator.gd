@@ -1,4 +1,5 @@
-extends Animator
+@tool
+extends ControlAnimator
 class_name ModulateAnimator
 
 

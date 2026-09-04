@@ -11,7 +11,6 @@ var delay: float = 0
 @export var ease_type: Tween.EaseType = Tween.EASE_IN_OUT
 @export var play_on_ready: bool = false
 
-@onready var parent: CanvasItem = get_parent() as CanvasItem
 
 var _tween: Tween
 
@@ -22,15 +21,15 @@ var is_playing: bool:
 
 
 func _ready() -> void:
-	if parent == null:
-		push_error("Animator must be a child of a CanvasItem.")
+	if not get_parent():
+		push_error("[YA3] An animator must have a parent node.")
 		return
 	
 	if play_on_ready:
 		play_animation()
 
 
-func play_animation(reverse := false) -> Tween:
+func play_animation(reverse := false) -> void:
 	if _tween:
 		_tween.kill()
 	
@@ -40,7 +39,7 @@ func play_animation(reverse := false) -> Tween:
 	property_tween.set_trans(transition_type)
 	property_tween.set_ease(ease_type)
 	await _tween.finished
-	return _tween
+	_tween = null
 
 
 func stop_animation() -> void:

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://4oioiyh4wayf"]
+
+[ext_resource type="Script" uid="uid://bnrhmyx316j32" path="res://addons/ya3/animators/modulate_animator.gd" id="1_37kl0"]
+[ext_resource type="Script" uid="uid://cl7bg5ra1p45p" path="res://addons/ya3/animators/scale_animator.gd" id="2_8uh7m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04qrn"]
+
+[node name="Test" type="Node2D" unique_id=280893374]
+
+[node name="Button" type="Button" parent="." unique_id=419293390]
+offset_left = 522.0
+offset_top = 296.0
+offset_right = 617.0
+offset_bottom = 327.0
+text = "dfsdfsdfsdf"
+
+[node name="Area3D" type="Area3D" parent="Button" unique_id=1582901709]
+disable_mode = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button/Area3D" unique_id=377177958]
+shape = SubResource("BoxShape3D_04qrn")
+
+[node name="ModulateAnimator" type="Node" parent="Button" unique_id=1476603613]
+script = ExtResource("1_37kl0")
+play_on_ready = true
+metadata/_custom_type_script = "uid://bnrhmyx316j32"
+
+[node name="ScaleAnimator" type="Node" parent="Button" unique_id=336325582]
+script = ExtResource("2_8uh7m")
+play_on_ready = true
+metadata/_custom_type_script = "uid://cl7bg5ra1p45p"

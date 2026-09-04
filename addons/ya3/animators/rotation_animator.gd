@@ -1,4 +1,5 @@
-extends Animator
+@tool
+extends ControlAnimator
 class_name RotationAnimator
 
 @export var rotation_degree := 360
