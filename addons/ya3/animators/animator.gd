@@ -1,0 +1,53 @@
+@abstract
+extends Node
+class_name Animator
+
+@export_range(0, 60, 0.01, "or_greater", "hide_control")
+var duration: float = 1.0
+@export_range(0, 60, 0.01, "or_greater", "hide_control")
+var delay: float = 0
+
+@export var transition_type: Tween.TransitionType = Tween.TRANS_LINEAR
+@export var ease_type: Tween.EaseType = Tween.EASE_IN_OUT
+@export var play_on_ready: bool = false
+
+@onready var parent: CanvasItem = get_parent() as CanvasItem
+
+var _tween: Tween
+
+var is_playing: bool:
+	get:
+		return _tween != null and _tween.is_valid()
+
+
+
+func _ready() -> void:
+	if parent == null:
+		push_error("Animator must be a child of a CanvasItem.")
+		return
+	
+	if play_on_ready:
+		play_animation()
+
+
+func play_animation(reverse := false) -> Tween:
+	if _tween:
+		_tween.kill()
+	
+	_tween = create_tween()
+	_tween.tween_interval(delay)
+	var property_tween := _animation_implementation(reverse)
+	property_tween.set_trans(transition_type)
+	property_tween.set_ease(ease_type)
+	await _tween.finished
+	return _tween
+
+
+func stop_animation() -> void:
+	if _tween:
+		_tween.kill()
+		_tween = null
+
+
+@abstract
+func _animation_implementation(reverse := false) -> PropertyTweener
