@@ -2,16 +2,26 @@
 
 [ext_resource type="Script" uid="uid://d0hp0pirgchx5" path="res://addons/ya3/animators/3d_animators/rotation_animator_3d.gd" id="2_8uh7m"]
 [ext_resource type="Script" uid="uid://dsukgpve17od8" path="res://addons/ya3/animators/3d_animators/scale_animator_3d.gd" id="3_6uqi0"]
+[ext_resource type="Script" uid="uid://cgg7pwvwfxdye" path="res://addons/ya3/animators/2d_animators/rotation_animator_2d.gd" id="3_ppyta"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_4d1cq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_04qrn"]
 
-[node name="Node3D" type="Node3D" unique_id=1640881898]
+[node name="Node2D" type="Node2D" unique_id=168961526]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=591259824]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=378214141]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CanvasTexture_4d1cq")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1640881898]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" unique_id=591259824]
 transform = Transform3D(0.8807362, 0, -0.47360745, -0.14536928, 0.9517287, -0.27033353, 0.4507458, 0.3069405, 0.8382219, 0, 0, 0)
 mesh = SubResource("BoxMesh_04qrn")
 
-[node name="ScaleAnimator3D" type="Node" parent="MeshInstance3D" unique_id=1244502639]
+[node name="ScaleAnimator3D" type="Node" parent="Node3D/MeshInstance3D" unique_id=1244502639]
 script = ExtResource("3_6uqi0")
 duration = 2.0
 delay = 0.5
@@ -19,16 +29,24 @@ transition_type = 6
 play_on_ready = true
 metadata/_custom_type_script = "uid://dsukgpve17od8"
 
-[node name="RotationAnimator3D" type="Node" parent="MeshInstance3D" unique_id=680078849]
+[node name="RotationAnimator3D" type="Node" parent="Node3D/MeshInstance3D" unique_id=680078849]
 script = ExtResource("2_8uh7m")
 rotation_degree = Vector3(360, 360, 360)
+duration = 5.0
 delay = 2.0
+transition_type = 6
 play_on_ready = true
 metadata/_custom_type_script = "uid://d0hp0pirgchx5"
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=672130440]
+[node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=672130440]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.020887852, 3.0647776)
 
-[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=43247625]
+[node name="AreaLight3D" type="AreaLight3D" parent="Node3D" unique_id=43247625]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.8062701)
 area_attenuation = -0.908
+
+[node name="RotationAnimator2D" type="Node" parent="." unique_id=1124893851]
+script = ExtResource("3_ppyta")
+rotation_degree = 360.0
+play_on_ready = true
+metadata/_custom_type_script = "uid://cgg7pwvwfxdye"
