@@ -10,7 +10,7 @@ var delay: float = 0
 @export var transition_type: Tween.TransitionType = Tween.TRANS_LINEAR
 @export var ease_type: Tween.EaseType = Tween.EASE_IN_OUT
 @export var play_on_ready: bool = false
-
+@export var loop: LoopType = LoopType.NO_LOOP
 
 var _tween: Tween
 
@@ -19,6 +19,11 @@ var is_playing: bool:
 		return _tween != null and _tween.is_valid()
 
 
+enum LoopType {
+	NO_LOOP,
+	LOOP,
+	REVERSE
+}
 
 func _ready() -> void:
 	if not get_parent():
@@ -34,12 +39,16 @@ func play_animation(reverse := false) -> void:
 		_tween.kill()
 	
 	_tween = create_tween()
+	
 	_tween.tween_interval(delay)
 	var property_tween := _animation_implementation(reverse)
 	property_tween.set_trans(transition_type)
 	property_tween.set_ease(ease_type)
-	await _tween.finished
-	_tween = null
+	
+	if loop == LoopType.NO_LOOP:
+		await _tween.finished
+		_tween = null
+	
 
 
 func stop_animation() -> void:

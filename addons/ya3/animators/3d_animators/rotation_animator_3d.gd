@@ -2,17 +2,37 @@
 extends Animator3D
 class_name RotationAnimator3D
 
-@export
-var rotation_degree: Vector3 = Vector3(0, 0, 0)
+
+@export var rotation_before: Vector3 = Vector3(0, 0, 0)
+@export var rotation_after: Vector3 = Vector3(360, 360, 360)
 
 
 func _animation_implementation(reverse := false) -> PropertyTweener:
-	parent.rotation_degrees = rotation_degree if reverse else Vector3.ZERO
-	
 	var property_tween := _tween.tween_property(
 		parent,
 		"rotation_degrees",
-		Vector3.ZERO if reverse else rotation_degree,
+		rotation_before if reverse else rotation_after,
 		duration
 	)
+	
+	match loop:
+		LoopType.LOOP:
+			_tween.set_loops()
+			_tween.tween_property(
+				parent,
+				"rotation_degrees",
+				rotation_before,
+				0
+			)
+		LoopType.REVERSE:
+			var rev := _tween.tween_property(
+				parent,
+				"rotation_degrees",
+				rotation_after if reverse else rotation_before,
+				duration
+			)
+			rev.set_trans(transition_type)
+			rev.set_ease(ease_type)
+			_tween.set_loops()
+			
 	return property_tween

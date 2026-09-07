@@ -2,6 +2,7 @@
 extends ControlAnimator
 class_name ScaleAnimator
 
+
 @export var scale_before: Vector2 = Vector2.ZERO
 @export var scale_after: Vector2 = Vector2.ONE
 
@@ -25,5 +26,25 @@ func _animation_implementation(reverse := false) -> PropertyTweener:
 		scale_before if reverse else scale_after,
 		duration
 	)
+	
+	match loop:
+		LoopType.LOOP:
+			_tween.set_loops()
+			_tween.tween_property(
+				parent,
+				"scale",
+				scale_after if reverse else scale_before,
+				0
+			)
+		LoopType.REVERSE:
+			var rev := _tween.tween_property(
+				parent,
+				"scale",
+				scale_after if reverse else scale_before,
+				duration
+			)
+			rev.set_trans(transition_type)
+			rev.set_ease(ease_type)
+			_tween.set_loops()
 	
 	return property_tween
