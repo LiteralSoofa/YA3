@@ -17,6 +17,7 @@ func _ready() -> void:
 
 
 func _animation_implementation(reverse := false) -> PropertyTweener:
+	parent.offset_transform_enabled = true
 	parent.offset_transform_pivot_ratio = Vector2(0.5, 0.5)
 	parent.offset_transform_scale = scale_after if reverse else scale_before
 	
