@@ -17,12 +17,12 @@ func _ready() -> void:
 
 
 func _animation_implementation(reverse := false) -> PropertyTweener:
-	parent.pivot_offset_ratio = Vector2(0.5, 0.5)
-	parent.scale = scale_after if reverse else scale_before
+	parent.offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+	parent.offset_transform_scale = scale_after if reverse else scale_before
 	
 	var property_tween := _tween.tween_property(
 		parent,
-		"scale",
+		"offset_transform_scale",
 		scale_before if reverse else scale_after,
 		duration
 	)
@@ -32,14 +32,14 @@ func _animation_implementation(reverse := false) -> PropertyTweener:
 			_tween.set_loops()
 			_tween.tween_property(
 				parent,
-				"scale",
+				"offset_transform_scale",
 				scale_after if reverse else scale_before,
 				0
 			)
 		LoopType.REVERSE:
 			var rev := _tween.tween_property(
 				parent,
-				"scale",
+				"offset_transform_scale",
 				scale_after if reverse else scale_before,
 				duration
 			)

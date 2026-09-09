@@ -8,12 +8,14 @@ class_name RotationAnimator
 
 
 func _animation_implementation(reverse := false) -> PropertyTweener:
-	parent.pivot_offset_ratio = Vector2(0.5, 0.5)
-	parent.rotation_degrees = rotation_after if reverse else rotation_before
+	parent.offset_transform_enabled = true
+	parent.offset_transform_pivot_ratio = Vector2(0.5, 0.5)
+
+	parent.offset_transform_rotation = rotation_after if reverse else rotation_before
 	
 	var property_tween := _tween.tween_property(
 		parent,
-		"rotation_degrees",
+		"offset_transform_rotation",
 		rotation_before if reverse else rotation_after,
 		duration
 	)
@@ -23,14 +25,14 @@ func _animation_implementation(reverse := false) -> PropertyTweener:
 			_tween.set_loops()
 			_tween.tween_property(
 				parent,
-				"rotation_degrees",
+				"offset_transform_rotation",
 				rotation_after if reverse else rotation_before,
 				0
 			)
 		LoopType.REVERSE:
 			var rev := _tween.tween_property(
 				parent,
-				"rotation_degrees",
+				"offset_transform_rotation",
 				rotation_after if reverse else rotation_before,
 				duration
 			)

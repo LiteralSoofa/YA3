@@ -1,35 +1,45 @@
 [gd_scene format=3 uid="uid://4oioiyh4wayf"]
 
-[ext_resource type="Script" uid="uid://dsukgpve17od8" path="res://addons/ya3/animators/3d_animators/scale_animator_3d.gd" id="1_37kl0"]
+[ext_resource type="Texture2D" uid="uid://drovovt8qolc6" path="res://icon.png" id="3_6uqi0"]
+[ext_resource type="Script" uid="uid://d2aa8kqc5t444" path="res://addons/ya3/animators/control_animators/slide_animator.gd" id="4_ppyta"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_4d1cq"]
+[node name="Control" type="Control" unique_id=34683516]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[sub_resource type="BoxMesh" id="BoxMesh_04qrn"]
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1356441749]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Node2D" type="Node2D" unique_id=168961526]
-rotation = 6.2831855
+[node name="Control2" type="Control" parent="CenterContainer" unique_id=567642480]
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=378214141]
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("CanvasTexture_4d1cq")
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/Control2" unique_id=1576925986]
+custom_maximum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+offset_transform_enabled = true
+texture = ExtResource("3_6uqi0")
 
-[node name="Node3D" type="Node3D" parent="." unique_id=1640881898]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" unique_id=591259824]
-transform = Transform3D(0.59688705, 0.0021768599, -0.0021689783, -0.0021689786, 0.596887, 0.0021689928, 0.00217686, -0.0021610823, 0.596887, 0, 0, 0)
-mesh = SubResource("BoxMesh_04qrn")
-
-[node name="ScaleAnimator3D" type="Node" parent="Node3D/MeshInstance3D" unique_id=1169430734]
-script = ExtResource("1_37kl0")
-transition_type = 7
+[node name="SlideAnimator" type="Node" parent="CenterContainer/Control2/TextureRect" unique_id=1672324827]
+script = ExtResource("4_ppyta")
 play_on_ready = true
 loop = 2
-metadata/_custom_type_script = "uid://dsukgpve17od8"
-
-[node name="Camera3D" type="Camera3D" parent="Node3D" unique_id=672130440]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.020887852, 3.0647776)
-
-[node name="AreaLight3D" type="AreaLight3D" parent="Node3D" unique_id=43247625]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.8062701)
-area_attenuation = -0.908
+metadata/_custom_type_script = "uid://d2aa8kqc5t444"
