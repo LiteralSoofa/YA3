@@ -9,10 +9,15 @@ func _animation_implementation(reverse := false) -> PropertyTweener:
 	parent.offset_transform_enabled = true
 	var direction_factor: float = (max(get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y) + max(parent.size.x, parent.size.y)) / 2
 	
+	var orig_pos = parent.offset_transform_position
+	var trgt_pos = parent.offset_transform_position + direction * direction_factor
+	
+	parent.offset_transform_position = trgt_pos if reverse else orig_pos
+	
 	var property_tween := _tween.tween_property(
 		parent,
 		"offset_transform_position",
-		parent.offset_transform_position if reverse else direction * direction_factor,
+		orig_pos if reverse else trgt_pos,
 		duration
 	)
 	
@@ -22,14 +27,14 @@ func _animation_implementation(reverse := false) -> PropertyTweener:
 			_tween.tween_property(
 				parent,
 				"offset_transform_position",
-				direction * direction_factor if reverse else parent.offset_transform_position,
+				trgt_pos if reverse else orig_pos,
 				0
 			)
 		LoopType.REVERSE:
 			var rev := _tween.tween_property(
 				parent,
 				"offset_transform_position",
-				direction * direction_factor if reverse else parent.offset_transform_position,
+				trgt_pos if reverse else orig_pos,
 				duration
 			)
 			rev.set_trans(transition_type)
